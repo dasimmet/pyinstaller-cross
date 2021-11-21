@@ -1,2 +1,3 @@
-xvfb
+curl
 winetricks
+xvfb
