@@ -1,0 +1,7 @@
+curl
+python3-pip
+python3-venv
+python3-wheel
+wine
+wine64
+wine32

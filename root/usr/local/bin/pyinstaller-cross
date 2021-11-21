@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# chown -R --reference=. /runtime/wineprefix /runtime/native
+if [ "$TARGET" = "windows" ];
+then
+    export PATH="/bin-wine:$PATH"
+else
+    . /runtime/native/venv/bin/activate
+fi
+[ -f requirements.txt ] && python3 -m pip install -r requirements.txt
+[ -f setup.py ] && python3 -m pip install -U .
+
+exec "$@"

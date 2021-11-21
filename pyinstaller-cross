@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+IMAGE=test:latest
+# docker pull $IMAGE
+docker run --pull --rm  -v "$PWD:/runtime/workdir" -e TARGET "$IMAGE" /usr/local/bin/pyinstaller-cross "$@"
