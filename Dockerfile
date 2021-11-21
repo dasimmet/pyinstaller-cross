@@ -1,4 +1,4 @@
-FROM ubuntu:21.10 as BASE
+FROM ubuntu:21.10 as base
 
 ENV TZ=UTC \
     DEBIAN_FRONTEND="noninteractive" \
@@ -19,12 +19,7 @@ COPY root/runtime /runtime
 
 WORKDIR /runtime/workdir
 
-RUN python3 -m venv /runtime/native/venv && \
-    . /runtime/native/venv/bin/activate && \
-    python3 -m pip install -U pip wheel
-
-
-FROM BASE AS XVFB
+FROM base AS xvfb
 
 ARG WINEPYTHON_VERSION=3.9.9
 
@@ -44,7 +39,11 @@ RUN curl -Lo /tmp-install/installer.exe https://www.python.org/ftp/python/$WINEP
     wine cmd /c C:/venv.bat python -m pip install -U pip wheel && \
     wineserver -w"
 
-FROM BASE AS FINAL
+FROM base AS final
+
+RUN python3 -m venv /runtime/native/venv && \
+    . /runtime/native/venv/bin/activate && \
+    python3 -m pip install -U pip wheel
 
 COPY root/bin-wine /bin-wine
 COPY root/usr/local/bin /usr/local/bin
