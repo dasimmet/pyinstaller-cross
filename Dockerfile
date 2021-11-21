@@ -36,14 +36,14 @@ RUN curl -Lo /tmp-install/installer.exe https://www.python.org/ftp/python/$WINEP
     set -x && \
     wine /tmp-install/installer.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0 TargetDir=C:/Python && \
     wine C:/Python/python.exe -m venv C:/venv && \
-    wine cmd /c C:/venv.bat python -m pip install -U pip wheel && \
+    wine cmd /c C:/venv.bat python -m pip install -U pip wheel pyinstaller && \
     wineserver -w"
 
 FROM base AS final
 
 RUN python3 -m venv /runtime/native/venv && \
     . /runtime/native/venv/bin/activate && \
-    python3 -m pip install -U pip wheel
+    python3 -m pip install -U pip wheel pyinstaller
 
 COPY root/bin-wine /bin-wine
 COPY root/usr/local/bin /usr/local/bin

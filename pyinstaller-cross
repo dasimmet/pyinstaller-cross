@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 
 [ -z "$IMAGE" ] && IMAGE=ghcr.io/dasimmet/pyinstaller-cross:latest
-# docker pull $IMAGE
-docker run --pull --rm $DOCKER_ARGS -v "$PWD:/runtime/workdir" -e TARGET "$IMAGE" /usr/local/bin/pyinstaller-cross "$@"
+docker run --rm $DOCKER_ARGS -v "$PWD:/runtime/workdir" -e TARGET -- "$IMAGE" /usr/local/bin/pyinstaller-cross "$@"
